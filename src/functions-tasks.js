@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 /* *********************************************************************************************
  *                                                                                             *
  * Please read the following tutorial before implementing tasks:                                *
@@ -74,10 +75,11 @@ function getArgumentsCount(funcs) {
  *
  */
 function getPowerFunction(exponent) {
-  return function (a) {
+  return (a) => {
     return a ** exponent;
   };
 }
+
 /**
  * Returns the polynom function of one argument based on specified coefficients.
  * See: https://en.wikipedia.org/wiki/Polynomial#Definition
@@ -91,9 +93,27 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-  throw new Error('Not implemented');
+function getPolynom(...args) {
+  return (x) => {
+    let y = 0;
+    const [oneArg, twoArg, threeArg] = args;
+    if (args.length === 0) {
+      y = null;
+    }
+    if (args.length === 1) {
+      y = oneArg;
+    }
+    if (args.length === 2) {
+      y = oneArg * x + twoArg;
+    }
+    if (args.length === 3) {
+      y = oneArg * x ** 2 + twoArg * x + threeArg;
+    }
+    return y;
+  };
 }
+// let b = getPolynom(2, 3, 5);
+// console.log(b(0));
 
 /**
  * Memoizes passed function and returns function
