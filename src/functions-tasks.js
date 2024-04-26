@@ -1,5 +1,4 @@
-/* eslint-disable func-names */
-/* *********************************************************************************************
+/** ********************************************************************************************
  *                                                                                             *
  * Please read the following tutorial before implementing tasks:                                *
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions                     *
@@ -131,7 +130,7 @@ function getPolynom(...args) {
  */
 function memoize(func) {
   const cache = {};
-  return function (...args) {
+  return function ggg(...args) {
     const key = JSON.stringify(args);
     if (key in cache) {
       return cache[key];
@@ -157,8 +156,18 @@ function memoize(func) {
  * }, 2);
  * retryer() => 2
  */
-function retry(/* func, attempts */) {
-  throw new Error('Not implemented');
+function retry(func, attempts) {
+  let attempt = 0;
+  return (...args) => {
+    while (attempt < attempts) {
+      try {
+        attempt = func(...args);
+      } catch (error) {
+        attempt += 1;
+      }
+    }
+    return attempt;
+  };
 }
 
 /**
@@ -196,13 +205,15 @@ function logger(/* func, logFunc */) {
  *
  * @example
  *   const fn = function(x1,x2,x3,x4) { return  x1 + x2 + x3 + x4; };
- *   partialUsingArguments(fn, 'a')('b','c','d') => 'abcd'
+ *   const fn = function(x1,x2,x3,x4)
  *   partialUsingArguments(fn, 'a','b')('c','d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  return function ne(...args2) {
+    return fn(...args1, ...args2);
+  };
 }
 
 /**
@@ -225,7 +236,6 @@ function partialUsingArguments(/* fn, ...args1 */) {
 function getIdGeneratorFunction(/* startFrom */) {
   throw new Error('Not implemented');
 }
-
 module.exports = {
   getCurrentFunctionName,
   getFunctionBody,
